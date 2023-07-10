@@ -1,8 +1,8 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import axios from 'axios';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+const url = 'https://api.thecatapi.com/v1/';
 axios.defaults.headers.common['x-api-key'] =
   'live_7emyDDihY6BUacWs73wj2JnrrmtWRzgvF9SztMG7X3O1bgm8jWWn2hH81UutvhBk';
-const url = 'https://api.thecatapi.com/v1/';
 
 export function fetchBreeds(browser) {
   axios
