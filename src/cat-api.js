@@ -1,4 +1,5 @@
 import axios from 'axios';
+const axios = require('axios').default;
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const url = 'https://api.thecatapi.com/v1/';
 axios.defaults.headers.common['x-api-key'] =
@@ -6,7 +7,7 @@ axios.defaults.headers.common['x-api-key'] =
 
 export function fetchBreeds(browser) {
   axios
-    .get('https://api.thecatapi.com/v1/breeds')
+    .get(url + 'breeds')
     .then(function (response) {
       const cats = response.data;
       cats.map(cat => {
