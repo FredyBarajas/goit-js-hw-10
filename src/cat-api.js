@@ -1,5 +1,4 @@
 import axios from 'axios';
-const axios = require('axios').default;
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const url = 'https://api.thecatapi.com/v1/';
 axios.defaults.headers.common['x-api-key'] =
