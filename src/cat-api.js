@@ -6,7 +6,7 @@ axios.defaults.headers.common['x-api-key'] =
 
 export function fetchBreeds(browser) {
   axios
-    .get(url + 'breeds')
+    .get('https://api.thecatapi.com/v1/breeds')
     .then(function (response) {
       const cats = response.data;
       cats.map(cat => {
