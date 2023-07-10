@@ -2,8 +2,9 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import axios from 'axios';
 axios.defaults.headers.common['x-api-key'] =
   'live_7emyDDihY6BUacWs73wj2JnrrmtWRzgvF9SztMG7X3O1bgm8jWWn2hH81UutvhBk';
+const url = 'https://api.thecatapi.com/v1/';
 
-export function fetchBreeds(url, browser) {
+export function fetchBreeds(browser) {
   axios
     .get(url + 'breeds')
     .then(function (response) {
@@ -20,7 +21,7 @@ export function fetchBreeds(url, browser) {
     });
 }
 
-export function fetchCatByBreed(breedId, url, loader, info) {
+export function fetchCatByBreed(breedId, loader, info) {
   axios
     .get(url + 'images/search?breed_ids=' + breedId)
     .then(function (response) {
