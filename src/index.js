@@ -8,12 +8,11 @@ axios.defaults.headers.common['x-api-key'] =
 
 const browser = document.querySelector('#selectEl');
 const loader = document.querySelector('.loader');
-const error = document.querySelector('.error');
 const info = document.querySelector('.cat-info');
 
 loader.classList.add('hidden');
 axios
-  .get(url + 'breeds')
+  .get(`${url}breeds`)
   .then(function (response) {
     const cats = response.data;
     console.log(cats);
@@ -34,7 +33,7 @@ browser.addEventListener('change', function () {
 
 function fetchCatByBreed(breedId) {
   axios
-    .get(url + 'images/search?breed_ids=' + breedId)
+    .get(`${url}images/search?breed_ids=${breedId}`)
     .then(function (response) {
       loader.classList.remove('hidden');
       info.classList.add('hidden');
