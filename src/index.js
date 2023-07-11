@@ -1,9 +1,7 @@
-import axios from 'axios';
-import SlimSelect from 'slim-select';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const url = 'https://api.thecatapi.com/v1/';
-axios.defaults.headers.common['x-api-key'] =
+const url = 'https://api.thecatapi.com/v1/breeds';
+const key =
   'live_7emyDDihY6BUacWs73wj2JnrrmtWRzgvF9SztMG7X3O1bgm8jWWn2hH81UutvhBk';
 
 const browser = document.querySelector('#selectEl');
@@ -11,10 +9,14 @@ const loader = document.querySelector('.loader');
 const info = document.querySelector('.cat-info');
 
 loader.classList.add('hidden');
-axios
-  .get(`${url}breeds`)
-  .then(function (response) {
-    const cats = response.data;
+fetch(url, {
+  headers: {
+    'x-api-key': key,
+  },
+})
+  .then(response => response.json())
+  .then(data => {
+    const cats = data;
     console.log(cats);
     cats.map(cat => {
       const option = document.createElement('option');
@@ -32,9 +34,14 @@ browser.addEventListener('change', function () {
 });
 
 function fetchCatByBreed(breedId) {
-  axios
-    .get(`${url}images/search?breed_ids=${breedId}`)
-    .then(function (response) {
+  const breedUrl = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
+  fetch(breedUrl, {
+    headers: {
+      'x-api-key': key,
+    },
+  })
+    .then(response => response.json())
+    .then(response => {
       loader.classList.remove('hidden');
       info.classList.add('hidden');
       info.innerHTML = '';
@@ -42,22 +49,22 @@ function fetchCatByBreed(breedId) {
         loader.classList.add('hidden');
         info.classList.remove('hidden');
       }, 1000);
-      console.log(response.data);
+      console.log(response);
       const catImage = document.createElement('img');
-      catImage.src = response.data[0].url;
+      catImage.src = response[0].url;
       catImage.classList.add('cat-image');
       const infoCat = document.createElement('div');
       const infoTitle = document.createElement('h1');
       const infoText = document.createElement('p');
       const infoTemp = document.createElement('p');
       infoCat.classList.add('info-cat');
-      infoTitle.textContent = response.data[0].breeds[0].name;
-      console.log(response.data[0].breeds[0].name);
+      infoTitle.textContent = response[0].breeds[0].name;
+      console.log(response[0].breeds[0].name);
       infoTitle.classList.add('cat-title');
-      infoText.textContent = response.data[0].breeds[0].description;
+      infoText.textContent = response[0].breeds[0].description;
       //infoText.classList.add('cat-description');//
       infoTemp.textContent =
-        'TEMPERAMENT: ' + response.data[0].breeds[0].temperament;
+        'TEMPERAMENT: ' + response[0].breeds[0].temperament;
       //infoTemp.classList.add('cat-temperament');//
       infoCat.appendChild(infoTitle);
       infoCat.appendChild(infoText);
